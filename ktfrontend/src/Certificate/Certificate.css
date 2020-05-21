@@ -1,0 +1,133 @@
+.certificate-container {
+    height: 100vh;
+    background: url('../img/main.jpeg') no-repeat center center/cover;
+    color: #fff;
+}
+
+.centered {
+    /* position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.665);
+    overflow: hidden;
+}
+
+#section {
+    display: flex;
+}
+
+#section div {
+    flex: 1;
+    flex-basis: 50%;
+    margin: 0 5rem;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0.4rem;
+}
+
+.ca-select {
+    height: 1.85rem;
+    width: 123%;
+    padding: 0.2rem;
+    border-radius: 10px;
+    outline: none;
+    text-align: center;
+}
+
+.invalid {
+    color: rgb(165, 11, 11);
+    padding: 0;
+    margin: 0;
+    font-size: 0.8rem;
+    width: 120%;
+}
+
+.certificate-box {
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    border: 2px solid #cff10d;
+    border-radius: 10px;
+    background: url('../img/crt.jpg') no-repeat center center/cover;
+    color: #333;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+    margin: 1rem 3rem;
+}
+
+.certificate-box-valid {
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    border: 2px solid green;
+    border-radius: 10px;
+    background: url('../img/crt.jpg') no-repeat center center/cover;
+    color: #333;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+    margin: 1rem 3rem;
+}
+
+.certificate-box-invalid {
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    border: 2px solid rgb(192, 7, 7);
+    border-radius: 10px;
+    background: url('../img/crt.jpg') no-repeat center center/cover;
+    color: #333;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+    margin: 1rem 3rem;
+}
+
+.certificate-box-container {
+    height: 100%;
+    /* background-color: rgba(0, 50, 0, 0.665); */
+    color: #fff;
+}
+
+.certificate-box-container > p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.certificate-box-container .invalid-cert {
+    color: rgb(165, 11, 11);
+}
+
+.certificate-box-container .valid-cert {
+    color: green;
+}
+
+.certificate-box-container > a {
+    color: #edf10d;
+    margin: 0rem 1rem;
+
+}
+
+.certificate-box-container > a:hover {
+    box-shadow: 3px 3px 10px 1px rgba(50, 50, 120, 0.7);
+}
