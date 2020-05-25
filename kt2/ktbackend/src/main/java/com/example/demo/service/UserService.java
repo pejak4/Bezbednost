@@ -52,22 +52,22 @@ public class UserService {
 
     public UserSearchDTO xssPrevent(emailDTO emaill) throws SQLException {
         String sql = "select "
-                + "first_name, last_name, email from users "
-                + "where email = ?";
+                + "first_name,last_name,email "
+                + "from users where email = '"
+                + emaill.getEmail()
+                + "'";
 
 
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
         dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8");
         dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("retturn.05be");
+        dataSourceBuilder.password("JovanJenjic123");
 
 
         DataSource dataSource = dataSourceBuilder.build();
         Connection c = dataSource.getConnection();
-        PreparedStatement p = c.prepareStatement(sql);
-        p.setString(1, emaill.getEmail());
-        ResultSet rs = p.executeQuery();
+        ResultSet rs = c.createStatement().executeQuery(sql);
 
         String firstName = "";
         String lastName = "";
@@ -100,7 +100,7 @@ public class UserService {
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
         dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8");
         dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("retturn.05be");
+        dataSourceBuilder.password("JovanJenjic123");
 
 
         DataSource dataSource = dataSourceBuilder.build();
