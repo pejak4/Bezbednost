@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class emailDTO {
 
-    @NotNull(message = "Email can't be null")
-    @Email
+//    @NotNull(message = "Email can't be null")
+//    @Email
     private String email;
 }
