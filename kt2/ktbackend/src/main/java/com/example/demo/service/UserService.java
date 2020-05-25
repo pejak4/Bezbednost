@@ -9,6 +9,7 @@ import com.example.demo.view.UserLoginView;
 import com.example.demo.view.UserRegisterView;
 import com.example.demo.view.UserTokenState;
 import javassist.NotFoundException;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.http.HttpStatus;
@@ -48,9 +49,48 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserSearchDTO safeFindOneByEmail(emailDTO emaill) throws SQLException {
-        System.out.println(emaill.getEmail());
 
+    public UserSearchDTO xssPrevent(emailDTO emaill) throws SQLException {
+        String sql = "select "
+                + "first_name, last_name, email from users "
+                + "where email = ?";
+
+
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName("org.postgresql.Driver");
+        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8");
+        dataSourceBuilder.username("postgres");
+        dataSourceBuilder.password("JovanJenjic123");
+
+
+        DataSource dataSource = dataSourceBuilder.build();
+        Connection c = dataSource.getConnection();
+        PreparedStatement p = c.prepareStatement(sql);
+        p.setString(1, emaill.getEmail());
+        ResultSet rs = p.executeQuery();
+
+        String firstName = "";
+        String lastName = "";
+        String email = "";
+        while (rs.next()) {
+            firstName = rs.getString("first_name");
+            lastName = rs.getString("last_name");
+            email = rs.getString("email");
+        }
+
+        firstName = StringEscapeUtils.escapeHtml4(firstName);
+        lastName = StringEscapeUtils.escapeHtml4(lastName);
+        email = StringEscapeUtils.escapeHtml4(email);
+
+        UserSearchDTO u = new UserSearchDTO();
+        u.setEmail(email);
+        u.setFirstName(firstName);
+        u.setLastName(lastName);
+
+        return u;
+    }
+
+    public UserSearchDTO safeFindOneByEmail(emailDTO emaill) throws SQLException {
         String sql = "select "
                 + "first_name, last_name, email from users "
                 + "where email = ?";

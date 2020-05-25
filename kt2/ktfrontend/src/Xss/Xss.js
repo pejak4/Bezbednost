@@ -1,12 +1,10 @@
 import React from 'react';
 import {updateObject} from '../utility';
-import {connect} from 'react-redux';
-import * as actions from '../store/actions/index';
 import Navbar from '../Navbar/Navbar';
 import axios from '../axios-objects';
 
 
-class Sqlinject extends React.PureComponent {
+class Xss extends React.PureComponent {
     state = {
         auth: {
             email: ''
@@ -45,8 +43,9 @@ class Sqlinject extends React.PureComponent {
         console.log(emaill);
         
         try {
-            const response = await axios.post('/search', emaill);
+            const response = await axios.post('/prevent', emaill);
             if (response) {
+                console.log(response.data);
                 this.setState({firstName: response.data.firstName, lastName: response.data.lastName, email: response.data.email})
             }
         } catch(err) {
@@ -60,7 +59,7 @@ class Sqlinject extends React.PureComponent {
             <div className="container_1">
             <Navbar />
                 <div className="container-content">
-                    <h3>SQL Injection - Search users by email</h3>
+                    <h3>XSS - Search users by email</h3>
                     <div className="login">
                         <div className="box">
                             <label>Email</label>
@@ -69,7 +68,7 @@ class Sqlinject extends React.PureComponent {
                             />
                         </div>
                         
-                    <a href="/" className="btn_1" onClick={(event) => {this.loginHandler(event); } }>Search</a>
+                    <a href="/" className="btn_1" onClick={(event) => {this.loginHandler(event); } }>Execute</a>
                         
                     </div>
                     <div className="car-card">
@@ -87,6 +86,7 @@ class Sqlinject extends React.PureComponent {
                                         <p className="icon-text">{this.state.email}</p>
                                     </div>
                                     <div dangerouslySetInnerHTML={{__html: this.state.firstName}}/>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -97,17 +97,5 @@ class Sqlinject extends React.PureComponent {
     }
 };
 
-const mapStateToProps = state => {
-    return {
-        email: state.auth.email,
-        loginn: state.auth.loginn
-    }
-}
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onLogin: (email, password) => dispatch(actions.login(email, password))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sqlinject);
+export default Xss;
