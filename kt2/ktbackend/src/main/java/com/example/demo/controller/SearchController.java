@@ -29,7 +29,6 @@ public class SearchController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/prevent")
     public ResponseEntity<?> prevent(@RequestBody emailDTO email) throws Exception {
-
-        return new ResponseEntity<>(this.userService.safeFindOneByEmail(email), HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.xssPrevent(email), HttpStatus.OK);
     }
 }
