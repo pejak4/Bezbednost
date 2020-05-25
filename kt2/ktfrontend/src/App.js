@@ -5,6 +5,7 @@ import Login from './Login/Login';
 import HomePage from './HomePage/HomePage';
 import PrivateRouteAdmin from './PrivateRoute/PrivateRouteAdmin';
 import Sqlinject from './Sqlinjection/Sqlinject';
+import Xss from './Xss/Xss';
 
 class App extends React.PureComponent {
   render() {
@@ -16,6 +17,7 @@ class App extends React.PureComponent {
             <Route path="/registration" exact component={Registration} />
             <Route path="/login" exact component={Login} />
             <Route path="/sqll" exact component={Sqlinject} />
+            <Route path="/xss" exact component={Xss} />
          </Switch>
         </BrowserRouter>
       </div>
