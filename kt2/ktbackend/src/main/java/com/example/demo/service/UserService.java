@@ -60,7 +60,7 @@ public class UserService {
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
         dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8");
         dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("JovanJenjic123");
+        dataSourceBuilder.password("retturn.05be");
 
 
         DataSource dataSource = dataSourceBuilder.build();

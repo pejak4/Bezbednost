@@ -26,16 +26,10 @@ public class SearchController {
         return new ResponseEntity<>(this.userService.safeFindOneByEmail(email), HttpStatus.OK);
     }
 
-<<<<<<< Updated upstream
-=======
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/prevent")
     public ResponseEntity<?> prevent(@RequestBody emailDTO email) throws Exception {
 
         return new ResponseEntity<>(this.userService.safeFindOneByEmail(email), HttpStatus.OK);
     }
-
-
->>>>>>> Stashed changes
-
 }
