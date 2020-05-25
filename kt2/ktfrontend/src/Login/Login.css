@@ -1,0 +1,30 @@
+.container_1 {
+    height: 100vh;
+    background: url('../img/svet.jpg') no-repeat center center/cover;
+    color: #fff;
+}
+
+.btn_1 {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: #fff;
+    background: #a85432;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn_1:hover {
+    background: #853b1e;
+}
+
+.a_a {
+    color: #853b1e;
+}
+
+.invalid_1 {
+    color: rgb(165, 11, 11);
+    padding: 0;
+    margin: 0;
+    font-size: 0.8rem;
+}
