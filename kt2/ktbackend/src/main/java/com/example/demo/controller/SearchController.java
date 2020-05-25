@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class SearchController {
 
@@ -22,13 +24,13 @@ public class SearchController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/search")
-    public ResponseEntity<?> search(@RequestBody emailDTO email) throws Exception {
+    public ResponseEntity<?> search(@Valid @RequestBody emailDTO email) throws Exception {
         return new ResponseEntity<>(this.userService.safeFindOneByEmail(email), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/prevent")
-    public ResponseEntity<?> prevent(@RequestBody emailDTO email) throws Exception {
+    public ResponseEntity<?> prevent(@Valid @RequestBody emailDTO email) throws Exception {
         return new ResponseEntity<>(this.userService.xssPrevent(email), HttpStatus.OK);
     }
 }
