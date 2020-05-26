@@ -1,11 +1,6 @@
 package com.example.demo.acl;
 
-
-import com.example.demo.model.Users;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,19 +15,18 @@ public class Acl {
     {
         System.out.println(role);
 
-        String username = "jovan";
-        Path file = Paths.get("C://Users/jovan/OneDrive/Desktop/slike/jovan.txt");
+        String username = "Stefan";
+        Path file = Paths.get("C://Users/Stefan/Desktop/test/blabla.txt");
 
         AclFileAttributeView aclAttr = Files.getFileAttributeView(file, AclFileAttributeView.class);
 
         UserPrincipalLookupService currULS = file.getFileSystem().getUserPrincipalLookupService();
         UserPrincipal principal = currULS.lookupPrincipalByName(username);
 
-
         AclEntry.Builder builder = AclEntry.newBuilder();
         if(role.equals("ADMIN")) {
             builder.setPermissions(EnumSet.of(
-                    AclEntryPermission.READ_DATA, // Ne mozemo da citamo fajl tj otvorimo
+                    AclEntryPermission.READ_DATA, // mozemo da citamo fajl tj otvorimo
                     AclEntryPermission.READ_ACL,
                     AclEntryPermission.READ_ATTRIBUTES,
                     AclEntryPermission.READ_NAMED_ATTRS,
@@ -47,7 +41,7 @@ public class Acl {
                     AclEntryPermission.READ_ATTRIBUTES,
                     AclEntryPermission.READ_NAMED_ATTRS,
                     AclEntryPermission.SYNCHRONIZE,
-//                    AclEntryPermission.DELETE, // Sa ovim mozemo da brisemo, bez ovoga samo admin moze da brise
+//                    AclEntryPermission.DELETE, // Sa ovim mozemo da brisemo
                     AclEntryPermission.ADD_FILE,
                     AclEntryPermission.APPEND_DATA));
         }
