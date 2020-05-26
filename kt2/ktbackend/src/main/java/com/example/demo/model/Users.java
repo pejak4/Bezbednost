@@ -1,15 +1,12 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.*;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -34,10 +31,12 @@ public class Users implements UserDetails {
     private UserRole role;
     private Date lastPasswordResetDate;
     private boolean firstTimeLogged = true;
+    @Transient
+    private List<GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

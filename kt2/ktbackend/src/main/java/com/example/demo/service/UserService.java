@@ -116,9 +116,6 @@ public class UserService {
             firstName = rs.getString("first_name");
             lastName = rs.getString("last_name");
             email = rs.getString("email");
-
-            System.out.println(firstName + "\t" + lastName +
-                    "\t" + email);
         }
 
         UserSearchDTO u = new UserSearchDTO();

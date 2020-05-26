@@ -42,10 +42,14 @@ class Sqlinject extends React.PureComponent {
         event.preventDefault();
         const {email} = this.state.auth;
         const emaill = {email};
-        console.log(emaill);
+        const token = sessionStorage.getItem('token');
         
         try {
-            const response = await axios.post('/search', emaill);
+            const response = await axios.post('/search', emaill, {
+                headers: {
+                    'Authorization' : 'Bearer ' + token
+                }
+            });
             if (response) {
                 this.setState({firstName: response.data.firstName, lastName: response.data.lastName, email: response.data.email})
             }

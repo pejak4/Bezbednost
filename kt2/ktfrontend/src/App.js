@@ -16,8 +16,8 @@ class App extends React.PureComponent {
             <Route path="/" exact component={HomePage} />
             <Route path="/registration" exact component={Registration} />
             <Route path="/login" exact component={Login} />
-            <Route path="/sqll" exact component={Sqlinject} />
-            <Route path="/xss" exact component={Xss} />
+            <PrivateRouteAdmin path="/sqll" exact component={Sqlinject} />
+            <PrivateRouteAdmin path="/xss" exact component={Xss} />
          </Switch>
         </BrowserRouter>
       </div>
