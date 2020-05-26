@@ -41,9 +41,14 @@ class Xss extends React.PureComponent {
         const {email} = this.state.auth;
         const emaill = {email};
         console.log(emaill);
+        const token = sessionStorage.getItem('token');
         
         try {
-            const response = await axios.post('/prevent', emaill);
+            const response = await axios.post('/prevent', emaill, {
+                headers: {
+                    'Authorization' : 'Bearer ' + token
+                }
+            });
             if (response) {
                 console.log(response.data);
                 this.setState({firstName: response.data.firstName, lastName: response.data.lastName, email: response.data.email})
