@@ -18,8 +18,14 @@ class Navbar extends React.PureComponent {
                 <ul>
                     {sessionStorage.getItem('token') === null ? <li><a href="/login">Login</a></li> : null}
                     {sessionStorage.getItem('token') === null ? <li><a href="/registration">Registration</a></li> : null}
+<<<<<<< Updated upstream
                     {sessionStorage.getItem('role') === 'ADMIN' ? <li><a href="/sqll">Sql injection</a></li> : null}
                     {sessionStorage.getItem('role') === 'ADMIN' ? <li><a href="/xss">Xss</a></li> : null}
+=======
+                    {sessionStorage.getItem('token') !== null ? <li><a href="/sqll">Sql injection</a></li> : null}
+                    {sessionStorage.getItem('token') !== null ? <li><a href="/xss">Xss</a></li> : null}
+                    {sessionStorage.getItem('token') !== null ? <li><a href="/acl">Acl</a></li> : null}
+>>>>>>> Stashed changes
                     {sessionStorage.getItem('token') !== null ? <li><a href="/login" onClick={(event) => this.logoutHandler(event)}>Logout</a></li> : null}
                 </ul>
             </nav>
