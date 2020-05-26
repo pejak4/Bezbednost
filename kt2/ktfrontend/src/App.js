@@ -17,14 +17,9 @@ class App extends React.PureComponent {
             <Route path="/" exact component={HomePage} />
             <Route path="/registration" exact component={Registration} />
             <Route path="/login" exact component={Login} />
-<<<<<<< Updated upstream
-            <PrivateRouteAdmin path="/sqll" exact component={Sqlinject} />
-            <PrivateRouteAdmin path="/xss" exact component={Xss} />
-=======
             <Route path="/sqll" exact component={Sqlinject} />
-            <Route path="/xss" exact component={Xss} />
+            <PrivateRouteAdmin path="/xss" exact component={Xss} />
             <Route path="/acl" exact component={Acl} />
->>>>>>> Stashed changes
          </Switch>
         </BrowserRouter>
       </div>

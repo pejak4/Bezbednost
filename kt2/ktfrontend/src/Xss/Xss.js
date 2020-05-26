@@ -40,7 +40,6 @@ class Xss extends React.PureComponent {
         event.preventDefault();
         const {email} = this.state.auth;
         const emaill = {email};
-        console.log(emaill);
         const token = sessionStorage.getItem('token');
         
         try {
@@ -50,7 +49,6 @@ class Xss extends React.PureComponent {
                 }
             });
             if (response) {
-                console.log(response.data);
                 this.setState({firstName: response.data.firstName, lastName: response.data.lastName, email: response.data.email})
             }
         } catch(err) {
@@ -91,7 +89,6 @@ class Xss extends React.PureComponent {
                                         <p className="icon-text">{this.state.email}</p>
                                     </div>
                                     <div dangerouslySetInnerHTML={{__html: this.state.firstName}}/>
-                                    
                                 </div>
                             </div>
                         </div>

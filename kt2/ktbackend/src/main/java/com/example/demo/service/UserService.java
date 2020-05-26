@@ -13,8 +13,6 @@ import javassist.NotFoundException;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,9 +20,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,7 +54,6 @@ public class UserService {
     @Autowired
     private Acl acl;
 
-
     public void addRestorePermissions(String role) throws IOException {
         this.acl.addRestorePermissions(role);
     }
@@ -67,13 +65,11 @@ public class UserService {
                 + emaill.getEmail()
                 + "'";
 
-
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
         dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8");
         dataSourceBuilder.username("postgres");
         dataSourceBuilder.password("retturn.05be");
-
 
         DataSource dataSource = dataSourceBuilder.build();
         Connection c = dataSource.getConnection();
@@ -105,13 +101,11 @@ public class UserService {
                 + "first_name, last_name, email from users "
                 + "where email = ?";
 
-
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
         dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8");
         dataSourceBuilder.username("postgres");
         dataSourceBuilder.password("retturn.05be");
-
 
         DataSource dataSource = dataSourceBuilder.build();
         Connection c = dataSource.getConnection();
@@ -136,9 +130,6 @@ public class UserService {
         return u;
         // omitted - process rows and return an account list
     }
-
-
-
 
     public Users register(UserRegisterView userRegisterView) {
         if (!userRegisterView.getPassword().equals(userRegisterView.getRepeatPassword()))

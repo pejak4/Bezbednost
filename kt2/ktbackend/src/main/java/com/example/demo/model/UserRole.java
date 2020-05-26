@@ -2,9 +2,6 @@ package com.example.demo.model;
 
 import lombok.Getter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 @Getter
 public enum UserRole {
 

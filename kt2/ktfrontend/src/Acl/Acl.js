@@ -1,10 +1,7 @@
 import React from 'react';
 import {updateObject} from '../utility';
-import {connect} from 'react-redux';
-import * as actions from '../store/actions/index';
 import Navbar from '../Navbar/Navbar';
 import axios from '../axios-objects';
-
 
 class Acl extends React.PureComponent {
     state = {
