@@ -61,7 +61,7 @@ class Registration extends React.PureComponent {
                     this.setState({validation});
                 }
             } else if (type === 'password') {
-                if (event.target.value.length >= 6) {
+                if (event.target.value.length >= 10) {
                     let validation = updateObject(this.state.validation, {
                         [type]: true
                     });
@@ -142,13 +142,13 @@ class Registration extends React.PureComponent {
                                 <label>Password</label>
                                 <input type="password" placeholder="Password"
                                 onChange={(event) => this.inputChangeHandler(event, 'password')} />
-                                {!this.state.validation.password ? <p className="invalid">Minimum 6 characters is required.</p> : null}
+                                {!this.state.validation.password ? <p className="invalid">Minimum 10 characters are required, with at least one capital letter and one special character.</p> : null}
                             </div>
                             <div className="box">
                                 <label>Repeat Password</label>
                                 <input type="password" placeholder="Repeat Password"
                                 onChange={(event) => this.inputChangeHandler(event, 'repeatPassword')} />
-                                {!this.state.validation.repeatPassword ? <p className="invalid">Please insert correct password.</p> : null}
+                                {!this.state.validation.repeatPassword ? <p className="invalid">Please insert equal password.</p> : null}
                             </div>
                             <a href="www.google.com" target="_blank" className="btn" onClick={(event) => this.registerHandler(event)}>Register</a>
                             {!this.state.registerValidation ? <p className="invalid">Please fill all fields.</p> : null}

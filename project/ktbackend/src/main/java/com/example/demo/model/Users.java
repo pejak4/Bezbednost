@@ -16,6 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@ToString
 public class Users implements UserDetails {
 
     @Id
