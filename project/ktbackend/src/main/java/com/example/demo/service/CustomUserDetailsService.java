@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Users;
+import lombok.SneakyThrows;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private AuthenticationManager authenticationManager;
 
     // Funkcija koja na osnovu email-a iz baze vraca objekat User-a
+    @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
@@ -38,6 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));
         else
         {
+            //ubaciti authoritije za odredjene role
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
             user.setAuthorities(authorities);

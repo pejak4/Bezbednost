@@ -10,6 +10,7 @@ import com.example.demo.view.UserLoginView;
 import com.example.demo.view.UserRegisterView;
 import com.example.demo.view.UserTokenState;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -17,11 +18,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
@@ -31,6 +30,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -41,9 +41,6 @@ public class UserService {
 
     @Autowired
     private AuthorityService authorityService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -93,6 +90,7 @@ public class UserService {
         u.setFirstName(firstName);
         u.setLastName(lastName);
 
+        log.info("XSS is prevented!");
         return u;
     }
 
@@ -127,17 +125,20 @@ public class UserService {
         u.setFirstName(firstName);
         u.setLastName(lastName);
 
+        log.info("SQL Injection is prevented!");
         return u;
         // omitted - process rows and return an account list
     }
 
-    public Users register(UserRegisterView userRegisterView) {
+    public Users register(UserRegisterView userRegisterView) throws NotFoundException {
         if (!userRegisterView.getPassword().equals(userRegisterView.getRepeatPassword()))
             return null;
 
         Users u = this.userService.findOneByEmail(userRegisterView.getEmail());
-        if (u != null)
+        if (u != null) {
+            log.warn("User with this email already exists");
             return null;
+        }
 
         return this.userService.save(userRegisterView);
     }
@@ -159,26 +160,36 @@ public class UserService {
         String jwt = tokenUtils.generateToken(userToken.getEmail(), userToken.getRole().getRole());
         int expiresIn = tokenUtils.getExpiredIn();
 
+        log.info(u + " has logged");
+
         return new UserTokenState(jwt, (long) expiresIn, userToken.isFirstTimeLogged());
     }
 
     public Users findOneByEmailAndPassword(String email, String password) throws NotFoundException {
         Users user = this.userRepository.findOneByEmail(email);
-        if (!this.passwordEncoder.matches(password, user.getPassword()))
+        if (user == null) {
+            log.error("Bad credentials, email doesn't matches!");
             throw new NotFoundException("Not existing user");
+        }
+        if (!BCrypt.checkpw(password, user.getPassword())) {
+            log.error("Bad credentials, password doesn't matches!");
+            throw new NotFoundException("Not existing user");
+        }
+        log.info(user + " has been found by his email and password");
 
         return user;
     }
 
-    public Users findOneByEmail(String email) {
+    public Users findOneByEmail(String email) throws NotFoundException {
         return this.userRepository.findOneByEmail(email);
     }
 
     public Users save(UserRegisterView user) {
         Users u = Users.builder().role(UserRole.valueOf("USER"))
                 .firstName(user.getFirstName()).lastName(user.getLastName()).email(user.getEmail())
-                .password(passwordEncoder.encode(user.getPassword())).build();
+                .password(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12))).build();
 
+        log.info("New user " + u + " has been registered");
         return this.userRepository.save(u);
     }
 }

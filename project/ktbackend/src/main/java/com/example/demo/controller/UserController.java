@@ -28,7 +28,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/registration")
-    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterView userRegisterView) {
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterView userRegisterView) throws NotFoundException {
         return new ResponseEntity<>(this.userService.register(userRegisterView), HttpStatus.CREATED);
     }
 }
