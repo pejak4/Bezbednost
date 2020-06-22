@@ -1,0 +1,22 @@
+database:
+    image: postgres:latest
+    restart: always
+    networks:
+        - demo
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: retturn.05be
+      
+  ktbackend:
+    image: ktbackend:1.0
+    ports:
+      - "8443:8443"
+    networks:
+        - demo
+    tty: true
+    environment:
+      DB_HOST: database
+    depends_on:
+        - database
